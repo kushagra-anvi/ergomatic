@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | INDEVA Ergomatic India</title>
+    <meta name="description" content="Photo gallery showcasing INDEVA Ergomatic industrial manipulators, AGVs, and factory facilities.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .gallery-category {
+            margin-bottom: 4rem;
+        }
+        .gallery-category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .gallery-grid-large {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .gallery-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition-normal);
+        }
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .gallery-card .gallery-img {
+            width: 100%;
+            height: 220px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .gallery-card .gallery-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-card .gallery-label {
+            padding: 1.25rem;
+        }
+        .gallery-card .gallery-label h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        .gallery-card .gallery-label p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+        @media (max-width: 768px) {
+            .gallery-grid-large {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Component Placeholder -->
+    <header id="site-header"></header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="hero-subtitle">Visual Showcase</span>
+            <h1>Gallery</h1>
+            <p>Explore our product range and industrial installations</p>
+        </div>
+    </section>
+
+    <!-- Gallery Content -->
+    <section class="section tech-grid-bg">
+        <div class="container">
+
+            <!-- Liftronic & Electronic Series -->
+            <div class="gallery-category">
+                <h3>Electronic Series (Liftronic® & Electro-Pneumatic Range)</h3>
+                <div class="gallery-grid-large">
+                    <div class="gallery-card" data-video-url="https://youtu.be/gh5b3QL1gJ8?si=trCZLnp1E82mTP7W" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/gh5b3QL1gJ8/hqdefault.jpg" alt="Liftronic Easy Column Mounted">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Liftronic® Easy — Column Mounted</h4>
+                            <p>Electronic manipulator with articulated arm · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/qci43-bRHUE?si=-LuG_P7X3nkSfJwp" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/qci43-bRHUE/hqdefault.jpg" alt="Liftronic Easy Ceiling Mounted">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Liftronic® Easy — Ceiling Mounted</h4>
+                            <p>Overhead rail with jointed arm · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/4qHRkLjlNH0?si=11iNJx7Vqq5VxpMy" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/4qHRkLjlNH0/hqdefault.jpg" alt="Liftronic Easy Liftruck">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Liftronic® Easy — Liftruck Version</h4>
+                            <p>Mobile forklift-mounted manipulator · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/_aiiSP5OYqU?si=IX7Ed84dcaLUUrwo" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/_aiiSP5OYqU/hqdefault.jpg" alt="Electronic Manipulator">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Electronic Manipulator</h4>
+                            <p>Intelligent zero-gravity lifting system · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/pPXiyRXJpiw?si=BMLUh-2Qgjn0WvoW" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/pPXiyRXJpiw/hqdefault.jpg" alt="Linear Pantograph Manipulator">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Linear Pantograph Manipulator</h4>
+                            <p>One-hand grip linear pantograph · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/orDOj3Dt5Yk?si=INiGs6oM5cbIc98T" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/orDOj3Dt5Yk/hqdefault.jpg" alt="Liftronic Mobile Solution">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Liftronic® Mobile Solution</h4>
+                            <p>Mobile autonomous lifting device · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/AhrD-YYOqcs?si=PvO_C1ZSYphLNIAd" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/AhrD-YYOqcs/hqdefault.jpg" alt="Scissor Pantograph">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Scissor Pantograph Manipulator</h4>
+                            <p>Balanced vertical lifting & positioning · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pneumatic Series -->
+            <div class="gallery-category">
+                <h3>Pneumatic Series</h3>
+                <div class="gallery-grid-large">
+                    <div class="gallery-card" data-video-url="https://youtu.be/vunHfMljLXw?si=_BGk7ObkKeHIMM-I" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/vunHfMljLXw/hqdefault.jpg" alt="Liftronic Air Column Mounted">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Liftronic® Air — Column Mounted</h4>
+                            <p>Pneumatic manipulator for fixed workstations · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/CoVAG05AcU0?si=Ewt-QLhinZN3YLC2" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/CoVAG05AcU0/hqdefault.jpg" alt="Liftronic Air Overhead Rail">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>INDEVA® Liftronic® Air — Overhead Rail</h4>
+                            <p>Ceiling mounted pneumatic system · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/jwd6AtXn8Ns?si=tCn3d2GPKiI2B9zT" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/jwd6AtXn8Ns/hqdefault.jpg" alt="Magnetic Gripper">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Permanent Magnet Gripper</h4>
+                            <p>Pneumatic magnetic lifting solution · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AGV / AMR Series -->
+            <div class="gallery-category">
+                <h3>AGV / AMR Systems (Automated Guided Vehicles & AMRs)</h3>
+                <div class="gallery-grid-large">
+                    <div class="gallery-card" data-video-url="https://youtu.be/Vcxq0MasTMA?si=D6BFJgE_Z1REivmH" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/Vcxq0MasTMA/hqdefault.jpg" alt="Tractor Bonnet Inversion Unit">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Tractor Bonnet & Glass Inversion Unit</h4>
+                            <p>Assembly & gluing inversion system · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/SzbaRj3tn_g?si=a58sj-FuZzOkoj9_" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/SzbaRj3tn_g/hqdefault.jpg" alt="Aluminium Cylinder Head Handling">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Aluminium Cylinder Head Handling</h4>
+                            <p>Engine housing manipulation · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtu.be/CVHmb7fkmAU?si=N9065-9eJ2rD50Rj" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/CVHmb7fkmAU/hqdefault.jpg" alt="Zero Gravity Manipulator">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Zero Gravity Manipulator System</h4>
+                            <p>Ergomatic weightless lift assist · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Photos -->
+            <div class="gallery-category">
+                <h3>Application Highlights</h3>
+                <div class="gallery-grid-large">
+                    <div class="gallery-card" data-video-url="https://youtube.com/shorts/-WvKXnXrOLs?si=svEJX_tkog61Hzjl" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/-WvKXnXrOLs/hqdefault.jpg" alt="Bumper Handling Vacuum Manipulator">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Bumper Handling Vacuum Manipulator</h4>
+                            <p>Automotive bumper application · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtube.com/shorts/OFh-QNX9HDg?si=eS1jPzgWDkzxteeT" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/OFh-QNX9HDg/hqdefault.jpg" alt="Jib Crane with Aluminum Rail">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>Jib Crane with Aluminum Rail</h4>
+                            <p>Inline pendant hoist operation · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" data-video-url="https://youtube.com/shorts/kazcgvgirP4?si=P8dFGMh4hoBqFKd2" style="cursor: pointer;">
+                        <div class="gallery-img">
+                            <img src="https://img.youtube.com/vi/kazcgvgirP4/hqdefault.jpg" alt="CNG Tank Loading Manipulator">
+                        </div>
+                        <div class="gallery-label">
+                            <h4>CNG Tank Loading Manipulator</h4>
+                            <p>Gas cylinder loading application · ▶ Watch Video</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Component Placeholder -->
+    <footer id="site-footer"></footer>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@0.294.0"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          setTimeout(() => {
+              lucide.createIcons();
+          }, 100);
+      });
+    </script>
+    <script src="assets/js/main.js?v=3"></script>
+</body>
+</html>
