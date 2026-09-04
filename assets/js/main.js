@@ -47,7 +47,7 @@ function injectHeaderFooter() {
         </div>
     `;
 
-    // Header HTML template — 8 nav items per PDF spec
+    // Header HTML template — with new brand structure
     const headerHTML = `
         ${topBarHTML}
         <div class="container">
@@ -62,10 +62,14 @@ function injectHeaderFooter() {
                     <li><a href="index.html" class="nav-link ${pageName === 'index.html' || pageName === '' ? 'active' : ''}">Home</a></li>
                     <li><a href="about.html" class="nav-link ${pageName === 'about.html' ? 'active' : ''}">About</a></li>
                     <li class="nav-dropdown-wrapper">
-                        <a href="#" class="nav-link ${['industrial-manipulators.html', 'automatic-guided-vehicles.html', 'robotic-automation.html'].includes(pageName) ? 'active' : ''}">Products <span class="dropdown-caret">▼</span></a>
+                        <a href="#" class="nav-link ${['ergomatic.html', 'indeva.html', 'sysdesign.html', 'industrial-manipulators.html', 'automatic-guided-vehicles.html', 'robotic-automation.html'].includes(pageName) ? 'active' : ''}">Our Brands <span class="dropdown-caret">▼</span></a>
                         <ul class="nav-dropdown">
-                            <li><a href="industrial-manipulators.html" class="dropdown-link ${pageName === 'industrial-manipulators.html' ? 'active' : ''}">Industrial Manipulators</a></li>
-                            <li><a href="automatic-guided-vehicles.html" class="dropdown-link ${pageName === 'automatic-guided-vehicles.html' ? 'active' : ''}">AGV / AMR Systems</a></li>
+                            <li><a href="ergomatic.html" class="dropdown-link ${pageName === 'ergomatic.html' ? 'active' : ''}">ERGOMATIC™ Manipulators</a></li>
+                            <li><a href="indeva.html" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
+                            <li><a href="sysdesign.html" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
+                            <li><hr style="margin: 0.5rem 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);"></li>
+                            <li><a href="industrial-manipulators.html" class="dropdown-link ${pageName === 'industrial-manipulators.html' ? 'active' : ''}">All Manipulators</a></li>
+                            <li><a href="automatic-guided-vehicles.html" class="dropdown-link ${pageName === 'automatic-guided-vehicles.html' ? 'active' : ''}">AGV & AMR Systems</a></li>
                             <li><a href="robotic-automation.html" class="dropdown-link ${pageName === 'robotic-automation.html' ? 'active' : ''}">Robotic Automation</a></li>
                         </ul>
                     </li>
@@ -80,7 +84,7 @@ function injectHeaderFooter() {
         </div>
     `;
 
-    // Footer HTML template — with both India & Italy HQ
+    // Footer HTML template — with new brand structure
     const footerHTML = `
         <div class="container">
             <div class="footer-grid">
@@ -88,26 +92,30 @@ function injectHeaderFooter() {
                     <a href="index.html" class="footer-logo-badge" style="display: inline-block; margin-bottom: 1.25rem;">
                         <img src="assets/logo.png" alt="INDEVA Ergomatic Logo">
                     </a>
-                    <p>INDEVA Ergomatic India is a leading provider of advanced industrial manipulators, AGVs, and custom material handling automation solutions, delivering cutting-edge technology and local engineering expertise.</p>
+                    <p>Leading provider of pneumatic, electric, and autonomous material handling solutions. Three specialized brands serving industrial automation across India and globally.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="industrial-manipulators.html">Products</a></li>
+                        <li><a href="ergomatic.html">ERGOMATIC™</a></li>
+                        <li><a href="indeva.html">INDEVA®</a></li>
+                        <li><a href="sysdesign.html">SYSDESIGN®</a></li>
                         <li><a href="application.html">Application</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Products</h4>
+                    <h4>Our Brands</h4>
                     <ul>
-                        <li><a href="industrial-manipulators.html">Industrial Manipulators</a></li>
-                        <li><a href="automatic-guided-vehicles.html">Automated Guided Vehicles</a></li>
-                        <li><a href="robotic-automation.html">Robotic Automation</a></li>
-                        <li><a href="downloads.html">Downloads</a></li>
+                        <li><a href="ergomatic.html">ERGOMATIC™ Pneumatic Manipulators</a></li>
+                        <li><a href="indeva.html">INDEVA® Intelligent Lifting</a></li>
+                        <li><a href="sysdesign.html">SYSDESIGN® AMR & AGV</a></li>
+                        <li><a href="industrial-manipulators.html">All Manipulator Lines</a></li>
+                        <li><a href="automatic-guided-vehicles.html">Autonomous Systems</a></li>
+                        <li><a href="downloads.html">Downloads & Specs</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
