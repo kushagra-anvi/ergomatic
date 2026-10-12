@@ -665,6 +665,12 @@ header.phantom-active .nav-container {
     .slider-arrow {
         display: none;
     }
+    .hero-slider h1 {
+        font-size: 2.8rem;
+    }
+    .hero-slider p {
+        font-size: 1.05rem;
+    }
 }
 
 /* Page hero — lighter, blue-dominant gradient */
@@ -707,22 +713,42 @@ header.phantom-active .nav-container {
 
 @media (max-width: 768px) {
     .hero-slider {
-        height: 75vh;
-        min-height: 480px;
+        height: 78vh;
+        height: 78svh;
+        min-height: 500px;
+        max-height: 720px;
         position: relative;
         padding: 0;
     }
     .hero-slider .slide-content-container {
-        padding-top: 3.5rem;
-        padding-bottom: 5rem;
+        padding: 3rem 0 4.5rem;
         align-items: center;
+    }
+    .hero-slider .slide-video-wrap iframe {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    .hero-slider .hero-content {
+        max-width: 620px;
+    }
+    .hero-slider .hero-subtitle {
+        max-width: 100%;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.85rem;
+        white-space: normal;
     }
     .hero-slider h1 {
         font-size: 1.8rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
     }
     .hero-slider p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
         margin-bottom: 1.5rem;
+    }
+    .hero-slider .btn-group {
+        flex-wrap: wrap;
+        gap: 0.75rem;
     }
     .page-hero {
         padding: 6rem 0 2.5rem 0;
@@ -730,6 +756,21 @@ header.phantom-active .nav-container {
     .btn {
         padding: 0.7rem 1.35rem;
         font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-slider .slide-content-container {
+        padding: 2.5rem 0 4rem;
+    }
+    .hero-slider .btn-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .hero-slider .btn-group .btn {
+        width: min(100%, 280px);
+        justify-content: center;
+        text-align: center;
     }
 }
 
