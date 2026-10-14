@@ -53,7 +53,7 @@ function injectHeaderFooter() {
         <div class="container">
             <div class="nav-container">
                 <a href="index.html" class="logo">
-                    <img src="assets/logo.png" alt="INDEVA Ergomatic Logo" style="height: 45px; width: auto; object-fit: contain;">
+                    <img src="assets/logo.png" alt="INDEVA Ergomatic Logo" style="height: 50px; width: auto; object-fit: contain;">
                 </a>
                 <button class="mobile-nav-toggle" aria-label="Toggle Navigation" id="mobile-toggle">
                     ☰
@@ -64,7 +64,7 @@ function injectHeaderFooter() {
                     <li class="nav-dropdown-wrapper">
                         <a href="#" class="nav-link ${['ergomatic.html', 'indeva.html', 'sysdesign.html', 'industrial-manipulators.html', 'automatic-guided-vehicles.html', 'robotic-automation.html'].includes(pageName) ? 'active' : ''}">Our Brands <span class="dropdown-caret">▼</span></a>
                         <ul class="nav-dropdown">
-                            <li><a href="ergomatic.html" class="dropdown-link ${pageName === 'ergomatic.html' ? 'active' : ''}">ERGOMATIC™ Manipulators</a></li>
+                            <li><a href="ergomatic.html" class="dropdown-link ${pageName === 'ergomatic.html' ? 'active' : ''}">ERGOMATIC Manipulators</a></li>
                             <li><a href="indeva.html" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
                             <li><a href="sysdesign.html" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
                             <li><hr style="margin: 0.5rem 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);"></li>
@@ -99,7 +99,7 @@ function injectHeaderFooter() {
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="ergomatic.html">ERGOMATIC™</a></li>
+                        <li><a href="ergomatic.html">ERGOMATIC</a></li>
                         <li><a href="indeva.html">INDEVA®</a></li>
                         <li><a href="sysdesign.html">SYSDESIGN®</a></li>
                         <li><a href="application.html">Application</a></li>
@@ -110,7 +110,7 @@ function injectHeaderFooter() {
                 <div class="footer-col">
                     <h4>Our Brands</h4>
                     <ul>
-                        <li><a href="ergomatic.html">ERGOMATIC™ Pneumatic Manipulators</a></li>
+                        <li><a href="ergomatic.html">ERGOMATIC Pneumatic Manipulators</a></li>
                         <li><a href="indeva.html">INDEVA® Intelligent Lifting</a></li>
                         <li><a href="sysdesign.html">SYSDESIGN® AMR & AGV</a></li>
                         <li><a href="industrial-manipulators.html">All Manipulator Lines</a></li>
