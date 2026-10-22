@@ -66,7 +66,7 @@ function injectHeaderFooter() {
                         <ul class="nav-dropdown">
                             <li><a href="ergomatic.html" class="dropdown-link ${pageName === 'ergomatic.html' ? 'active' : ''}">ERGOMATIC Manipulators</a></li>
                             <li><a href="https://www.indevagroup.com/indeva-hoist/" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
-                            <li><a href="https://www.indevagroup.com/automatic-guided-vehicles/" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
+                            <li><a href="https://www.indevagroup.com/industrial-manipulators/" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
                            
                             <li><a href="robotic-automation.html" class="dropdown-link ${pageName === 'robotic-automation.html' ? 'active' : ''}">Robotic Automation</a></li>
                         </ul>
