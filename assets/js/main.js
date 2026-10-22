@@ -65,11 +65,9 @@ function injectHeaderFooter() {
                         <a href="#" class="nav-link ${['ergomatic.html', 'indeva.html', 'sysdesign.html', 'industrial-manipulators.html', 'automatic-guided-vehicles.html', 'robotic-automation.html'].includes(pageName) ? 'active' : ''}">Our Brands <span class="dropdown-caret">▼</span></a>
                         <ul class="nav-dropdown">
                             <li><a href="ergomatic.html" class="dropdown-link ${pageName === 'ergomatic.html' ? 'active' : ''}">ERGOMATIC Manipulators</a></li>
-                            <li><a href="indeva.html" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
-                            <li><a href="sysdesign.html" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
-                            <li><hr style="margin: 0.5rem 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);"></li>
-                            <li><a href="industrial-manipulators.html" class="dropdown-link ${pageName === 'industrial-manipulators.html' ? 'active' : ''}">All Manipulators</a></li>
-                            <li><a href="automatic-guided-vehicles.html" class="dropdown-link ${pageName === 'automatic-guided-vehicles.html' ? 'active' : ''}">AGV & AMR Systems</a></li>
+                            <li><a href="https://www.indevagroup.com/indeva-hoist/" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
+                            <li><a href="https://www.indevagroup.com/automatic-guided-vehicles/" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
+                           
                             <li><a href="robotic-automation.html" class="dropdown-link ${pageName === 'robotic-automation.html' ? 'active' : ''}">Robotic Automation</a></li>
                         </ul>
                     </li>
@@ -392,7 +390,7 @@ function initHeroSlider() {
 
     let currentIndex = 0;
     let slideInterval;
-    const intervalTime = 6000; // 6 seconds
+    const intervalTime = 5000; // 5 seconds
 
     function showSlide(index) {
         // Remove active class from current slide and dot
