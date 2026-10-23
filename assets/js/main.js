@@ -72,7 +72,7 @@ function injectHeaderFooter() {
                         </ul>
                     </li>
                     <li><a href="application.html" class="nav-link ${pageName === 'application.html' ? 'active' : ''}">Application</a></li>
-                    <li><a href="news.html" class="nav-link ${pageName === 'news.html' ? 'active' : ''}">Articles & News</a></li>
+                    <li><a href="news.php" class="nav-link ${pageName === 'news.php' || pageName === 'article.php' ? 'active' : ''}">Articles & News</a></li>
                     <li><a href="gallery.html" class="nav-link ${pageName === 'gallery.html' ? 'active' : ''}">Gallery</a></li>
                     <li><a href="downloads.html" class="nav-link ${pageName === 'downloads.html' ? 'active' : ''}">Downloads</a></li>
                     <li><a href="contact.html" class="nav-link ${pageName === 'contact.html' ? 'active' : ''}">Contact Us</a></li>

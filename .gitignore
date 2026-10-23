@@ -7,3 +7,4 @@
 .vscode/
 .playwright-mcp/
 .serena/
+config.local.php

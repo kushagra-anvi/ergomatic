@@ -1,0 +1,15 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+RewriteRule ^robots\.txt$ robots.php [L]
+
+Redirect 301 /news.html /news.php
+
+<Files "config.local.php">
+    Require all denied
+</Files>
+
+<FilesMatch "\.sql$">
+    Require all denied
+</FilesMatch>

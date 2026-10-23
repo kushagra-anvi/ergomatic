@@ -1,0 +1,3 @@
+ALTER TABLE posts
+    ADD COLUMN seo_title VARCHAR(200) DEFAULT NULL AFTER excerpt,
+    ADD COLUMN seo_description VARCHAR(320) DEFAULT NULL AFTER seo_title;
