@@ -85,6 +85,62 @@ function render_article_body(string $body): string
     return $html !== null ? sanitize_article_html($html) : plain_text_to_html($body);
 }
 
+function normalize_faq_json(string $input): array
+{
+    $input = trim($input);
+    if ($input === '') return [];
+    if (strlen($input) > 100000) throw new InvalidArgumentException('FAQ structured data must be 100 KB or smaller.');
+    if (preg_match('/^<script\b[^>]*>(.*?)<\/script>$/is', $input, $match)) $input = trim($match[1]);
+
+    try {
+        $data = json_decode($input, true, 64, JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        throw new InvalidArgumentException('Enter valid FAQ JSON-LD or leave the field empty.');
+    }
+
+    if (!is_array($data)) throw new InvalidArgumentException('FAQ data must be a JSON array or FAQPage object.');
+    if (array_key_exists('mainEntity', $data)) {
+        if (($data['@type'] ?? 'FAQPage') !== 'FAQPage' || !is_array($data['mainEntity'])) {
+            throw new InvalidArgumentException('Use a FAQPage object with a mainEntity question list.');
+        }
+        $data = $data['mainEntity'];
+    }
+    if (count($data) > 20) throw new InvalidArgumentException('Add no more than 20 FAQ questions to one article.');
+
+    $faqs = [];
+    foreach ($data as $item) {
+        if (!is_array($item)) throw new InvalidArgumentException('Each FAQ item must include a question and answer.');
+        $question = $item['question'] ?? $item['name'] ?? null;
+        $answer = $item['answer'] ?? ($item['acceptedAnswer']['text'] ?? null);
+        if (!is_string($question) || !is_string($answer)) throw new InvalidArgumentException('Each FAQ item must include a question and answer.');
+        $question = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($question), ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? '');
+        $answer = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($answer), ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? '');
+        $questionLength = function_exists('mb_strlen') ? mb_strlen($question, 'UTF-8') : strlen($question);
+        $answerLength = function_exists('mb_strlen') ? mb_strlen($answer, 'UTF-8') : strlen($answer);
+        if ($question === '' || $answer === '' || $questionLength > 300 || $answerLength > 3000) {
+            throw new InvalidArgumentException('Each FAQ question must be 1–300 characters and each answer 1–3,000 characters.');
+        }
+        $faqs[] = ['question' => $question, 'answer' => $answer];
+    }
+
+    return $faqs;
+}
+
+function faq_page_jsonld(array $faqs): ?string
+{
+    if (!$faqs) return null;
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => array_map(static fn(array $faq): array => [
+            '@type' => 'Question',
+            'name' => $faq['question'],
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']],
+        ], $faqs),
+    ];
+    return json_encode($schema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+}
+
 function sanitize_article_html(string $html): string
 {
     if (!class_exists(DOMDocument::class)) {
@@ -257,13 +313,13 @@ function site_head(string $title, string $description = '', ?string $canonical =
         }
         if (!empty($social['json_ld'])) echo '<script type="application/ld+json">' . json_encode($social['json_ld'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES) . '</script>';
     }
-    echo '<link rel="stylesheet" href="assets/css/style.css"><link rel="icon" type="image/png" href="assets/favicon.png"></head><body>';
+    echo '<link rel="stylesheet" href="assets/css/style.css?v=12"><link rel="icon" type="image/png" href="assets/favicon.png"></head><body>';
     echo '<header id="site-header"></header>';
 }
 
 function site_foot(): void
 {
-    echo '<footer id="site-footer"></footer><script src="https://unpkg.com/lucide@0.294.0"></script><script src="assets/js/main.js?v=4"></script></body></html>';
+    echo '<footer id="site-footer"></footer><script src="https://unpkg.com/lucide@0.294.0"></script><script src="assets/js/main.js?v=8"></script></body></html>';
 }
 
 function admin_header(string $title): void

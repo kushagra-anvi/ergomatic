@@ -16,6 +16,7 @@ CREATE TABLE posts (
     seo_title VARCHAR(200) DEFAULT NULL,
     seo_description VARCHAR(320) DEFAULT NULL,
     body MEDIUMTEXT NOT NULL,
+    faq_json MEDIUMTEXT DEFAULT NULL,
     cover_image VARCHAR(255) DEFAULT NULL,
     status ENUM('draft', 'published') NOT NULL DEFAULT 'draft',
     published_at DATETIME DEFAULT NULL,

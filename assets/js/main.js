@@ -62,10 +62,22 @@ function injectHeaderFooter() {
                     <li><a href="index.html" class="nav-link ${pageName === 'index.html' || pageName === '' ? 'active' : ''}">Home</a></li>
                     <li><a href="about.html" class="nav-link ${pageName === 'about.html' ? 'active' : ''}">About</a></li>
                     <li class="nav-dropdown-wrapper">
-                        <a href="#" class="nav-link ${['ergomatic.html', 'indeva.html', 'sysdesign.html', 'industrial-manipulators.html', 'automatic-guided-vehicles.html', 'robotic-automation.html'].includes(pageName) ? 'active' : ''}">Our Brands <span class="dropdown-caret">▼</span></a>
+                        <div class="nav-dropdown-heading">
+                            <a href="#" class="nav-link ${['ergomatic.html', 'indeva.html', 'sysdesign.html', 'industrial-manipulators.html', 'automatic-guided-vehicles.html', 'robotic-automation.html'].includes(pageName) ? 'active' : ''}" aria-expanded="false">Our Brands <span class="dropdown-caret"></span></a>
+                            <button class="nav-dropdown-toggle" type="button" aria-label="Show brand links" aria-expanded="false">›</button>
+                        </div>
                         <ul class="nav-dropdown">
-                            <li><a href="ergomatic.html" class="dropdown-link ${pageName === 'ergomatic.html' ? 'active' : ''}">ERGOMATIC Manipulators</a></li>
-                            <li><a href="https://www.indevagroup.com/indeva-hoist/" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
+                            <li class="nav-submenu-wrapper">
+                                <div class="nav-submenu-heading">
+                                    <a href="ergomatic.html" class="dropdown-link ${['ergomatic.html', 'pneumatic-manipulators.html', 'electro-pneumatic-manipulators.html'].includes(pageName) ? 'active' : ''}">ERGOMATIC Manipulators <span class="dropdown-caret"></span></a>
+                                    <button class="nav-submenu-toggle" type="button" aria-label="Show ERGOMATIC product categories" aria-expanded="false">›</button>
+                                </div>
+                                <ul class="nav-submenu">
+                                    <li><a href="pneumatic-manipulators.html" class="dropdown-link ${pageName === 'pneumatic-manipulators.html' ? 'active' : ''}">Pneumatic Manipulators</a></li>
+                                    <li><a href="electro-pneumatic-manipulators.html" class="dropdown-link ${pageName === 'electro-pneumatic-manipulators.html' ? 'active' : ''}">Electro-Pneumatic Manipulators</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="https://www.indevagroup.com/industrial-manipulators/" class="dropdown-link ${pageName === 'indeva.html' ? 'active' : ''}">INDEVA® Intelligent Lifting</a></li>
                             <li><a href="https://www.indevagroup.com/industrial-manipulators/" class="dropdown-link ${pageName === 'sysdesign.html' ? 'active' : ''}">SYSDESIGN® AMR & AGV</a></li>
                            
                             <li><a href="robotic-automation.html" class="dropdown-link ${pageName === 'robotic-automation.html' ? 'active' : ''}">Robotic Automation</a></li>
@@ -108,7 +120,9 @@ function injectHeaderFooter() {
                 <div class="footer-col">
                     <h4>Our Brands</h4>
                     <ul>
-                        <li><a href="ergomatic.html">ERGOMATIC Pneumatic Manipulators</a></li>
+                        <li><a href="ergomatic.html">ERGOMATIC Manipulators</a></li>
+                        <li><a href="pneumatic-manipulators.html">Pneumatic Manipulators</a></li>
+                        <li><a href="electro-pneumatic-manipulators.html">Electro-Pneumatic Manipulators</a></li>
                         <li><a href="indeva.html">INDEVA® Intelligent Lifting</a></li>
                         <li><a href="sysdesign.html">SYSDESIGN® AMR & AGV</a></li>
                         <li><a href="industrial-manipulators.html">All Manipulator Lines</a></li>
@@ -152,6 +166,36 @@ function injectHeaderFooter() {
     if (headerElem) {
         headerElem.innerHTML = headerHTML;
         setupMobileMenu();
+        const toggleBrands = (wrapper) => {
+            const link = wrapper.querySelector(':scope > .nav-dropdown-heading > .nav-link');
+            const toggle = wrapper.querySelector(':scope > .nav-dropdown-heading > .nav-dropdown-toggle');
+            const submenu = wrapper.querySelector('.nav-submenu-wrapper');
+            const submenuToggle = submenu?.querySelector('.nav-submenu-toggle');
+            const isOpen = wrapper.classList.toggle('brands-open');
+            link?.setAttribute('aria-expanded', String(isOpen));
+            toggle?.setAttribute('aria-expanded', String(isOpen));
+            submenu?.classList.toggle('submenu-open', isOpen);
+            submenuToggle?.setAttribute('aria-expanded', String(isOpen));
+        };
+        document.querySelectorAll('.nav-dropdown-wrapper > .nav-dropdown-heading > .nav-link').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                if (!window.matchMedia('(max-width: 1024px)').matches) return;
+                event.preventDefault();
+                toggleBrands(link.closest('.nav-dropdown-wrapper'));
+            });
+        });
+        document.querySelectorAll('.nav-dropdown-toggle').forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                toggleBrands(toggle.closest('.nav-dropdown-wrapper'));
+            });
+        });
+        document.querySelectorAll('.nav-submenu-toggle').forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                const wrapper = toggle.closest('.nav-submenu-wrapper');
+                const isOpen = wrapper.classList.toggle('submenu-open');
+                toggle.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
         
         // Scroll listener for Phantom Floating Header with hysteresis to prevent scroll jitter
         let isPhantom = false;

@@ -689,6 +689,10 @@ header.phantom-active .nav-container {
     position: relative;
 }
 
+.about-page-hero {
+    background-image: linear-gradient(105deg, rgba(0, 40, 85, 0.94) 0%, rgba(0, 80, 157, 0.74) 55%, rgba(95, 169, 44, 0.28) 100%), url('../images/about-us-hero.jpeg');
+}
+
 .page-hero::before {
     content: '';
     position: absolute;
@@ -1786,6 +1790,26 @@ footer h4 {
 .nav-dropdown-wrapper {
     position: relative;
 }
+.nav-dropdown-heading { display: flex; align-items: center; }
+.nav-dropdown-toggle {
+    display: inline-flex;
+    width: 1.5rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.nav-dropdown-wrapper:hover > .nav-dropdown-heading > .nav-dropdown-toggle,
+.nav-dropdown-wrapper:focus-within > .nav-dropdown-heading > .nav-dropdown-toggle,
+.nav-dropdown-wrapper.brands-open > .nav-dropdown-heading > .nav-dropdown-toggle {
+    transform: rotate(90deg);
+}
 
 .dropdown-caret {
     font-size: 0.6rem;
@@ -1829,6 +1853,13 @@ footer h4 {
     transform: translateX(-50%) translateY(0);
 }
 
+.nav-dropdown-wrapper.brands-open > .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
 .dropdown-link {
     display: block;
     padding: 0.6rem 1.25rem;
@@ -1851,8 +1882,78 @@ footer h4 {
     font-weight: 600;
 }
 
+.nav-submenu-wrapper { position: relative; }
+.nav-submenu-heading { display: flex; align-items: center; }
+.nav-submenu-toggle { display: none; }
+.nav-submenu-heading > .dropdown-link .dropdown-caret {
+    display: inline-block;
+    transform: rotate(0deg);
+    transition: transform var(--transition-fast);
+}
+
+@media (min-width: 1025px) {
+    .nav-submenu-heading > .dropdown-link { flex: 1; }
+    .nav-submenu-toggle {
+        display: inline-flex;
+        width: 1.5rem;
+        height: 2rem;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        background: transparent;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform var(--transition-fast);
+    }
+    .nav-submenu-wrapper:hover > .nav-submenu-heading > .nav-submenu-toggle,
+    .nav-submenu-wrapper:focus-within > .nav-submenu-heading > .nav-submenu-toggle {
+        transform: rotate(90deg);
+    }
+
+    .nav-submenu-wrapper:hover > .nav-submenu-heading > .dropdown-link .dropdown-caret,
+    .nav-submenu-wrapper:focus-within > .nav-submenu-heading > .dropdown-link .dropdown-caret {
+        transform: rotate(-90deg);
+    }
+}
+
+.nav-submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 240px;
+    padding: 0.5rem 0;
+    list-style: none;
+    background: #fff;
+    border: 1px solid rgba(0, 40, 85, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 40, 85, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-12px);
+    transition: transform var(--transition-fast), opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+@media (min-width: 1025px) {
+    .nav-submenu-wrapper:hover > .nav-submenu,
+    .nav-submenu-wrapper:focus-within > .nav-submenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+}
+
 /* Dropdown mobile styling */
 @media (max-width: 1024px) {
+    .nav-dropdown-heading > .nav-link { flex: 1; }
+    .nav-dropdown-toggle {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.35rem;
+    }
+
     .nav-dropdown {
         position: static;
         transform: none !important;
@@ -1867,7 +1968,7 @@ footer h4 {
         display: none;
     }
     
-    .nav-menu.open .nav-dropdown {
+    .nav-menu.open .nav-dropdown-wrapper.brands-open > .nav-dropdown {
         display: block;
     }
     
@@ -1875,10 +1976,61 @@ footer h4 {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
+
+    .nav-submenu {
+        position: static;
+        display: block;
+        min-width: 0;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 0 0 0.75rem;
+        border: 0;
+        box-shadow: none;
+        opacity: 0;
+        visibility: visible;
+        pointer-events: none;
+        transform: translateX(-12px);
+        transition: max-height var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    .nav-submenu-wrapper.submenu-open > .nav-submenu {
+        max-height: 8rem;
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    .nav-submenu-heading { flex: 1; }
+    .nav-submenu-heading > .dropdown-link { flex: 1; }
+    .nav-submenu-toggle {
+        display: inline-flex;
+        width: 2.5rem;
+        height: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        background: transparent;
+        color: var(--text-secondary);
+        font-size: 1.35rem;
+        cursor: pointer;
+        transition: transform var(--transition-fast);
+    }
+    .nav-submenu-wrapper.submenu-open > .nav-submenu-heading > .nav-submenu-toggle {
+        transform: rotate(90deg);
+    }
     
     .dropdown-caret {
         display: inline-block;
         transform: rotate(90deg);
+    }
+
+    .nav-submenu-heading > .dropdown-link .dropdown-caret {
+        display: none;
+    }
+
+    .nav-submenu-wrapper.submenu-open > .nav-submenu-heading > .dropdown-link .dropdown-caret {
+        transform: rotate(180deg);
     }
 }
 
@@ -1979,4 +2131,21 @@ footer h4 {
     #article-body-visual .ql-editor, .blog-plain-source, .blog-html-source { padding: 1rem !important; }
     #article-body-visual .ql-editor.ql-blank::before { left: 1rem; }
     .blog-quill-toolbar.ql-toolbar.ql-snow { gap: .1rem; }
+}
+.ergomatic-range-grid { align-items: stretch; }
+.ergomatic-range-card { height: 100%; }
+.ergomatic-range-card .btn { margin-top: auto; }
+@media (max-width: 768px) {
+    .ergomatic-range-grid {
+        justify-items: center;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+    .ergomatic-range-card {
+        width: 100%;
+        min-width: 0;
+        max-width: 40rem;
+        text-align: center;
+    }
+    .ergomatic-range-card .btn { align-self: center; }
 }

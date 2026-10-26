@@ -22,7 +22,7 @@ site_head('Articles & News | INDEVA Ergomatic India', 'Industry insights, compan
                     <div class="blog-date"><?= e(date('F j, Y', strtotime($post['published_at']))) ?></div>
                     <h3><?= e($post['title']) ?></h3>
                     <p><?= e($post['excerpt']) ?></p>
-                    <a class="btn btn-secondary" href="article.php?slug=<?= rawurlencode($post['slug']) ?>">Read article</a>
+                    <a class="btn btn-secondary" href="<?= e(site_base_path() . rawurlencode($post['slug'])) ?>">Read article</a>
                 </article>
             <?php endforeach; ?>
         </div>

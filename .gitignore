@@ -8,3 +8,4 @@
 .playwright-mcp/
 .serena/
 config.local.php
+.superpowers/

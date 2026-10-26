@@ -6,7 +6,7 @@ if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)) {
     $post = null;
 } else {
     try {
-        $statement = db()->prepare("SELECT title, slug, excerpt, seo_title, seo_description, body, cover_image, published_at, updated_at FROM posts WHERE slug = ? AND status = 'published' LIMIT 1");
+        $statement = db()->prepare("SELECT title, slug, excerpt, seo_title, seo_description, body, faq_json, cover_image, published_at, updated_at FROM posts WHERE slug = ? AND status = 'published' LIMIT 1");
         $statement->execute([$slug]);
         $post = $statement->fetch();
         $baseUrl = rtrim((string) (app_config()['base_url'] ?? ''), '/');
@@ -25,15 +25,25 @@ if (!$post) {
     exit;
 }
 
+$scriptPath = parse_url($_SERVER['SCRIPT_NAME'] ?? '', PHP_URL_PATH);
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+if (basename((string) $scriptPath) === 'article.php' && $requestPath === $scriptPath) {
+    $cleanUrl = site_base_path() . rawurlencode($post['slug']);
+    header('Location: ' . $cleanUrl, true, 301);
+    exit;
+}
+
 try {
     $bodyHtml = render_article_body($post['body']);
+    $faqItems = normalize_faq_json((string) ($post['faq_json'] ?? ''));
 } catch (Throwable $exception) {
     service_unavailable();
 }
+$faqJsonLd = faq_page_jsonld($faqItems);
 $plainDescription = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($bodyHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? '');
 $description = trim((string) ($post['seo_description'] ?? '')) ?: (trim($post['excerpt']) ?: (function_exists('mb_substr') ? mb_substr($plainDescription, 0, 320, 'UTF-8') : substr($plainDescription, 0, 320)));
 $seoTitle = trim((string) ($post['seo_title'] ?? '')) ?: $post['title'];
-$canonical = $baseUrl ? $baseUrl . '/article.php?slug=' . rawurlencode($post['slug']) : null;
+$canonical = $baseUrl ? $baseUrl . '/' . rawurlencode($post['slug']) : null;
 $publishedTime = strtotime((string) $post['published_at']);
 $updatedTime = strtotime((string) $post['updated_at']);
 $publishedIso = $publishedTime ? date('Y-m-d', $publishedTime) : null;
@@ -55,10 +65,12 @@ $jsonLd = [
 if ($coverUrl) $jsonLd['image'] = [$coverUrl];
 site_head($seoTitle . ' | INDEVA Ergomatic India', $description, $canonical, ['image' => $coverUrl, 'published' => $publishedAtom, 'modified' => $updatedAtom, 'json_ld' => $jsonLd]);
 ?>
+<?php if ($faqJsonLd !== null): ?><script type="application/ld+json"><?= $faqJsonLd ?></script><?php endif; ?>
 <section class="page-hero"><div class="container"><span class="hero-subtitle">Published <?= e(date('F j, Y', strtotime($post['published_at']))) ?><?php if ($updatedTime && date('Y-m-d', $updatedTime) > date('Y-m-d', (int) $publishedTime)): ?> · Updated <?= e(date('F j, Y', $updatedTime)) ?><?php endif; ?></span><h1><?= e($post['title']) ?></h1><?php if ($post['excerpt'] !== ''): ?><p><?= e($post['excerpt']) ?></p><?php endif; ?></div></section>
 <main class="section"><article class="container blog-article">
     <?php if ($post['cover_image']): ?><img class="blog-article-cover" src="uploads/blog/<?= e($post['cover_image']) ?>" alt=""><?php endif; ?>
     <div class="card blog-article-body"><?= $bodyHtml ?></div>
     <a class="btn btn-secondary" href="news.php">Back to Articles & News</a>
 </article></main>
+<?php if ($faqItems): ?><section class="section-alt"><div class="container"><h2>Frequently Asked Questions</h2><div class="grid-2"><?php foreach ($faqItems as $faq): ?><article class="card"><h3><?= e($faq['question']) ?></h3><p><?= e($faq['answer']) ?></p></article><?php endforeach; ?></div></div></section><?php endif; ?>
 <?php site_foot(); ?>

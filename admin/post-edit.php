@@ -3,8 +3,9 @@ require_once __DIR__ . '/../includes/bootstrap.php';
 require_admin();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?: 0;
-$post = ['title' => '', 'slug' => '', 'excerpt' => '', 'seo_title' => '', 'seo_description' => '', 'body' => '', 'status' => 'draft', 'cover_image' => null];
+$post = ['title' => '', 'slug' => '', 'excerpt' => '', 'seo_title' => '', 'seo_description' => '', 'body' => '', 'faq_json' => null, 'status' => 'draft', 'cover_image' => null];
 $error = '';
+$faqDataJson = null;
 try {
     if ($id) {
         $statement = db()->prepare('SELECT * FROM posts WHERE id = ?');
@@ -18,6 +19,23 @@ try {
 } catch (Throwable $exception) {
     service_unavailable();
 }
+$faqEditorValue = (string) ($post['faq_json'] ?? '');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $faqEditorValue !== '') {
+    try {
+        $savedFaqs = normalize_faq_json($faqEditorValue);
+        $faqEditorValue = $savedFaqs ? (string) json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => array_map(static fn(array $faq): array => [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']],
+            ], $savedFaqs),
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : '';
+    } catch (InvalidArgumentException $exception) {
+        $faqEditorValue = '';
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_csrf();
@@ -27,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $post['seo_title'] = trim(post_string('seo_title'));
     $post['seo_description'] = trim(post_string('seo_description'));
     $post['body'] = trim(post_string('body'));
+    $faqEditorValue = trim(post_string('faq_json'));
     if (preg_match('/<[a-z][^>]*>/i', $post['body'])) {
         try {
             $post['body'] = sanitize_article_html($post['body']);
@@ -68,6 +87,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if ($error === '') {
+        try {
+            $faqItems = normalize_faq_json($faqEditorValue);
+            $faqDataJson = $faqItems ? json_encode($faqItems, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) : null;
+        } catch (InvalidArgumentException $exception) {
+            $error = $exception->getMessage();
+        } catch (JsonException $exception) {
+            $error = 'The FAQ data could not be encoded. Check the question and answer text.';
+        }
+    }
+
     if ($error === '' && isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] !== UPLOAD_ERR_NO_FILE) {
         $file = $_FILES['cover_image'];
         $mimeExtensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
@@ -93,13 +123,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($error === '') {
         try {
             if ($id) {
-                $sql = "UPDATE posts SET title = ?, slug = ?, excerpt = ?, seo_title = ?, seo_description = ?, body = ?, status = ?, cover_image = ?, published_at = CASE WHEN ? = 'published' THEN COALESCE(published_at, NOW()) ELSE NULL END WHERE id = ?";
+                $sql = "UPDATE posts SET title = ?, slug = ?, excerpt = ?, seo_title = ?, seo_description = ?, body = ?, faq_json = ?, status = ?, cover_image = ?, published_at = CASE WHEN ? = 'published' THEN COALESCE(published_at, NOW()) ELSE NULL END WHERE id = ?";
                 $statement = db()->prepare($sql);
-                $statement->execute([$post['title'], $post['slug'], $post['excerpt'], $post['seo_title'] ?: null, $post['seo_description'] ?: null, $post['body'], $post['status'], $newImage ?: $post['cover_image'], $post['status'], $id]);
+                $statement->execute([$post['title'], $post['slug'], $post['excerpt'], $post['seo_title'] ?: null, $post['seo_description'] ?: null, $post['body'], $faqDataJson, $post['status'], $newImage ?: $post['cover_image'], $post['status'], $id]);
             } else {
-                $sql = "INSERT INTO posts (admin_id, title, slug, excerpt, seo_title, seo_description, body, status, cover_image, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CASE WHEN ? = 'published' THEN NOW() ELSE NULL END)";
+                $sql = "INSERT INTO posts (admin_id, title, slug, excerpt, seo_title, seo_description, body, faq_json, status, cover_image, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CASE WHEN ? = 'published' THEN NOW() ELSE NULL END)";
                 $statement = db()->prepare($sql);
-                $statement->execute([$_SESSION['admin_id'], $post['title'], $post['slug'], $post['excerpt'], $post['seo_title'] ?: null, $post['seo_description'] ?: null, $post['body'], $post['status'], $newImage, $post['status']]);
+                $statement->execute([$_SESSION['admin_id'], $post['title'], $post['slug'], $post['excerpt'], $post['seo_title'] ?: null, $post['seo_description'] ?: null, $post['body'], $faqDataJson, $post['status'], $newImage, $post['status']]);
             }
             if ($newImage && !empty($post['cover_image'])) {
                 $oldPath = dirname(__DIR__) . '/uploads/blog/' . basename((string) $post['cover_image']);
@@ -130,6 +160,7 @@ echo '<label class="blog-editor-title"><span class="screen-reader-text">Title</s
 echo '<label>Article URL slug<input type="text" name="slug" maxlength="200" pattern="[a-z0-9]+(-[a-z0-9]+)*" value="' . e($post['slug']) . '" placeholder="generated-from-title"><small>Leave blank to generate it from the title, or use lowercase letters, numbers, and hyphens.</small></label>';
 echo '<label>Summary<textarea name="excerpt" maxlength="320" rows="3" placeholder="Write a short summary for the article listing">' . e($post['excerpt']) . '</textarea></label>';
 echo '<details class="blog-seo-fields"><summary>Search preview and SEO</summary><label>SEO title<input type="text" name="seo_title" maxlength="200" value="' . e($post['seo_title'] ?? '') . '" placeholder="Uses article title when blank"></label><label>Meta description<textarea name="seo_description" maxlength="320" rows="3" placeholder="Uses summary or article text when blank">' . e($post['seo_description'] ?? '') . '</textarea><small>Search engines may choose a different title or snippet.</small></label></details>';
+echo '<details class="blog-seo-fields"><summary>FAQ structured data (optional)</summary><label>FAQPage JSON-LD<textarea name="faq_json" maxlength="100000" rows="12" placeholder="Paste a FAQPage JSON-LD object or script">' . e($faqEditorValue) . '</textarea><small>Use article-specific questions and answers that also belong on the visible article page. Leave blank if this article has no FAQs.</small></label></details>';
 try {
     $visualBody = render_article_body($post['body']);
 } catch (Throwable $exception) {

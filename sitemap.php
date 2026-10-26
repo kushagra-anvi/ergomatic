@@ -29,7 +29,7 @@ foreach (glob(__DIR__ . '/*.html') ?: [] as $path) {
 }
 foreach ($posts as $post) {
     $entries[] = [
-        'loc' => $baseUrl . '/article.php?slug=' . rawurlencode($post['slug']),
+        'loc' => $baseUrl . '/' . rawurlencode($post['slug']),
         'lastmod' => substr((string) $post['updated_at'], 0, 10),
     ];
 }

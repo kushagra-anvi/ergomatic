@@ -6,6 +6,10 @@ RewriteRule ^robots\.txt$ robots.php [L]
 
 Redirect 301 /news.html /news.php
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z0-9]+(?:-[a-z0-9]+)*)/?$ article.php?slug=$1 [QSA,L]
+
 <Files "config.local.php">
     Require all denied
 </Files>

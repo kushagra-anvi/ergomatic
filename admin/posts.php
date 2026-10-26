@@ -19,7 +19,7 @@ if (!$posts) {
     foreach ($posts as $post) {
         echo '<tr><td>' . e($post['title']) . '<small>' . e($post['slug']) . '</small></td><td><span class="blog-status ' . e($post['status']) . '">' . e(ucfirst($post['status'])) . '</span></td><td>' . e(date('M j, Y', strtotime($post['updated_at']))) . '</td><td><a href="admin/post-edit.php?id=' . (int) $post['id'] . '">Edit</a>';
         if ($post['status'] === 'published') {
-            echo ' · <a href="article.php?slug=' . rawurlencode($post['slug']) . '" target="_blank" rel="noopener">View</a>';
+            echo ' \u00b7 <a href="' . e(site_base_path() . rawurlencode($post['slug'])) . '" target="_blank" rel="noopener">View</a>';
         }
         echo '<form class="blog-delete-form" method="post" action="admin/post-delete.php">' . csrf_field() . '<input type="hidden" name="id" value="' . (int) $post['id'] . '"><button class="blog-link-button" type="submit">Delete</button></form></td></tr>';
     }
