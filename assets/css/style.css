@@ -1082,12 +1082,16 @@ header.phantom-active .nav-container {
 }
 
 .accordion-header .arrow {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
     transition: transform var(--transition-fast);
-    font-size: 0.85rem;
 }
 
 .accordion-header.active .arrow {
-    transform: rotate(180deg);
+    transform: rotate(225deg) translateY(-2px);
 }
 
 .accordion-body {
