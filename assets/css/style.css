@@ -134,6 +134,7 @@ p {
 
 a {
     color: var(--brand-navy);
+    text-decoration: none;
 }
 
 /* Layout Containers */

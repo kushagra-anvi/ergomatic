@@ -13,43 +13,19 @@
     <link rel="stylesheet" href="assets/css/style.css?v=12" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <style>
-      /* Hide YouTube player UI elements */
       .slide-video-wrap {
         overflow: hidden;
       }
 
-      .slide-video-wrap iframe {
+      .slide-video-wrap video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
         width: 100%;
         height: 100%;
         display: block;
-      }
-
-      /* Hide all YouTube player controls, buttons, and overlays */
-      .ytp-chrome-bottom,
-      .ytp-chrome-top,
-      .ytp-gradient-top,
-      .ytp-gradient-bottom,
-      .ytp-player-shadow,
-      .ytp-progress-bar,
-      .ytp-progress-bar-container,
-      .ytp-controls,
-      .ytp-button,
-      .ytp-play-button,
-      .ytp-pause-button,
-      .ytp-next-button,
-      .ytp-fullscreen-button,
-      .ytp-captions-button,
-      .ytp-settings-button,
-      .ytp-large-play-button,
-      .ytp-loading-progress,
-      .ytp-tooltip,
-      .ytp-contextual-buttons,
-      .ytp-endscreen,
-      .ytp-endscreen-content,
-      .annotation,
-      .iv-overlay {
-        display: none !important;
-        visibility: hidden !important;
+        object-fit: cover;
+        transform: translate(-50%, -50%) scale(1.3);
       }
     </style>
   <meta name="google-site-verification" content="arY0JNxrFU9JtJOdOKuVkav-7zB7nUwv8Eb3Hp8nO-w">
@@ -71,12 +47,9 @@
       <!-- Slide 1: Ergomatic Pneumatic Manipulators (PRIMARY - FEATURED FIRST) -->
       <div class="slide active">
         <div class="slide-video-wrap">
-          <iframe
-            src="https://www.youtube.com/embed/Ip1i-LJr0N8?si=elcq6zizVUSRw9NH&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=Ip1i-LJr0N8&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;disablekb=1&amp;fs=0&amp;modestbranding=1&amp;playsinline=1"
-            title="Ergomatic pneumatic manipulators video"
-            allow="autoplay; encrypted-media"
-            frameborder="0"
-          ></iframe>
+          <video autoplay muted loop playsinline aria-label="Ergomatic pneumatic manipulators video">
+            <source src="assets/videos/Ergomatic.mp4" type="video/mp4" />
+          </video>
         </div>
         <div class="slide-overlay"></div>
         <div class="slide-content-container">
@@ -109,12 +82,9 @@
       <!-- Slide 2: INDEVA Intelligent Lifting (SECONDARY) -->
       <div class="slide">
         <div class="slide-video-wrap">
-          <iframe
-            src="https://www.youtube.com/embed/l10k-TVRtmk?autoplay=1&mute=1&loop=1&playlist=l10k-TVRtmk&controls=0&showinfo=0&rel=0&iv_load_policy=3&enablejsapi=1&disablekb=1&fs=0&modestbranding=1&playsinline=1"
-            allow="autoplay; encrypted-media"
-            frameborder="0"
-            style="pointer-events: none"
-          ></iframe>
+          <video autoplay muted loop playsinline aria-label="Ergomatic pneumatic manipulators video">
+            <source src="assets/videos/Ergomatic.mp4" type="video/mp4" />
+          </video>
         </div>
         <div class="slide-overlay"></div>
         <div class="slide-content-container">
@@ -145,12 +115,9 @@
       <!-- Slide 3: SysDesign AMR & AGV Solutions (SECONDARY) -->
       <div class="slide">
         <div class="slide-video-wrap">
-          <iframe
-            src="https://www.youtube.com/embed/w5Gy9Uj_YIA?autoplay=1&mute=1&loop=1&playlist=w5Gy9Uj_YIA&controls=0&showinfo=0&rel=0&iv_load_policy=3&enablejsapi=1&disablekb=1&fs=0&modestbranding=1&playsinline=1"
-            allow="autoplay; encrypted-media"
-            frameborder="0"
-            style="pointer-events: none"
-          ></iframe>
+          <video autoplay muted loop playsinline aria-label="Ergomatic pneumatic manipulators video">
+            <source src="assets/videos/Ergomatic.mp4" type="video/mp4" />
+          </video>
         </div>
         <div class="slide-overlay"></div>
         <div class="slide-content-container">
